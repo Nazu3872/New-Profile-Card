@@ -1,18 +1,18 @@
-// LocalStorage State Management
-const STORAGE_KEY = 'nazu_profile_data';
+// Unslopped Profile State Management
+const STORAGE_KEY = 'nazu_unslopped_profile_v2';
 
 const defaultProfile = {
   name: 'Nazmunnahar Nazu',
   handle: '@nazu3872',
-  bio: "I'm Nazmunnahar Nazu, an enthusiastic full-stack developer learning at Programming Hero. I specialize in building modern, responsive, user-centered web applications with clean code and intuitive design.",
+  bio: 'Full-stack web development student at Programming Hero. Focused on building responsive user interfaces, modular backend services, and clean, accessible code.',
   projects: '24',
   following: '350',
   followers: '1.2k',
-  photoUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80',
+  photoUrl: 'profile.jpg',
   isFollowing: false
 };
 
-// Elements
+// DOM References
 const displayFullName = document.getElementById('displayFullName');
 const displayHandle = document.getElementById('displayHandle');
 const displayBio = document.getElementById('displayBio');
@@ -21,11 +21,12 @@ const displayFollowing = document.getElementById('displayFollowing');
 const displayFollowers = document.getElementById('displayFollowers');
 const avatarImage = document.getElementById('avatarImage');
 const avatarInput = document.getElementById('avatarInput');
-const avatarWrapper = document.querySelector('.avatar-wrapper');
+const avatarContainer = document.querySelector('.avatar-container');
 
 const followBtn = document.getElementById('followBtn');
 const editProfileBtn = document.getElementById('editProfileBtn');
 const editModal = document.getElementById('editModal');
+const modalBackdrop = document.getElementById('modalBackdrop');
 const closeModalBtn = document.getElementById('closeModalBtn');
 const cancelEditBtn = document.getElementById('cancelEditBtn');
 const profileForm = document.getElementById('profileForm');
@@ -36,13 +37,17 @@ const inputBio = document.getElementById('inputBio');
 const inputProjects = document.getElementById('inputProjects');
 const inputFollowing = document.getElementById('inputFollowing');
 const inputFollowers = document.getElementById('inputFollowers');
-const inputPhotoUrl = document.getElementById('inputPhotoUrl');
 const messageBtn = document.getElementById('messageBtn');
 
-// Load stored data or defaults
+// Load & Save
 function loadProfile() {
   const saved = localStorage.getItem(STORAGE_KEY);
-  return saved ? { ...defaultProfile, ...JSON.parse(saved) } : defaultProfile;
+  if (!saved) return defaultProfile;
+  try {
+    return { ...defaultProfile, ...JSON.parse(saved) };
+  } catch {
+    return defaultProfile;
+  }
 }
 
 function saveProfile(data) {
@@ -56,61 +61,60 @@ function renderProfile(profile) {
   displayPosts.textContent = profile.projects;
   displayFollowing.textContent = profile.following;
   displayFollowers.textContent = profile.followers;
+  
   if (profile.photoUrl) {
     avatarImage.src = profile.photoUrl;
   }
 
-  // Update Follow button state
+  // Toggle follow state
+  const btnLabel = followBtn.querySelector('.btn-label');
   if (profile.isFollowing) {
     followBtn.classList.add('following');
-    followBtn.querySelector('.btn-text').textContent = 'Following';
+    btnLabel.textContent = 'Following';
   } else {
     followBtn.classList.remove('following');
-    followBtn.querySelector('.btn-text').textContent = 'Follow';
+    btnLabel.textContent = 'Follow';
   }
 }
 
 let currentProfile = loadProfile();
 renderProfile(currentProfile);
 
-// Toggle Follow state
+// Follow Toggle
 followBtn.addEventListener('click', () => {
   currentProfile.isFollowing = !currentProfile.isFollowing;
   saveProfile(currentProfile);
   renderProfile(currentProfile);
 });
 
-// Message button interaction
+// Message trigger
 messageBtn.addEventListener('click', () => {
-  alert(`Send a message to ${currentProfile.name} (${currentProfile.handle})`);
+  alert(`Connecting with ${currentProfile.name} (${currentProfile.handle})`);
 });
 
-// Modal open/close
-editProfileBtn.addEventListener('click', () => {
+// Modal Dialog Controls
+function openModal() {
   inputName.value = currentProfile.name;
   inputHandle.value = currentProfile.handle;
   inputBio.value = currentProfile.bio;
   inputProjects.value = currentProfile.projects;
   inputFollowing.value = currentProfile.following;
   inputFollowers.value = currentProfile.followers;
-  inputPhotoUrl.value = currentProfile.photoUrl || '';
   editModal.classList.add('open');
-});
+  editModal.setAttribute('aria-hidden', 'false');
+}
 
 function closeModal() {
   editModal.classList.remove('open');
+  editModal.setAttribute('aria-hidden', 'true');
 }
 
+editProfileBtn.addEventListener('click', openModal);
 closeModalBtn.addEventListener('click', closeModal);
 cancelEditBtn.addEventListener('click', closeModal);
+modalBackdrop.addEventListener('click', closeModal);
 
-editModal.addEventListener('click', (e) => {
-  if (e.target === editModal) {
-    closeModal();
-  }
-});
-
-// Save edits
+// Form Submission
 profileForm.addEventListener('submit', (e) => {
   e.preventDefault();
   currentProfile.name = inputName.value.trim() || currentProfile.name;
@@ -119,18 +123,14 @@ profileForm.addEventListener('submit', (e) => {
   currentProfile.projects = inputProjects.value.trim() || currentProfile.projects;
   currentProfile.following = inputFollowing.value.trim() || currentProfile.following;
   currentProfile.followers = inputFollowers.value.trim() || currentProfile.followers;
-  
-  if (inputPhotoUrl.value.trim()) {
-    currentProfile.photoUrl = inputPhotoUrl.value.trim();
-  }
 
   saveProfile(currentProfile);
   renderProfile(currentProfile);
   closeModal();
 });
 
-// Avatar click to upload local photo
-avatarWrapper.addEventListener('click', () => {
+// Local Photo Selection
+avatarContainer.addEventListener('click', () => {
   avatarInput.click();
 });
 

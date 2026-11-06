@@ -3,55 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nazmunnahar Nazu - Profile Card</title>
+  <title>Nazmunnahar Nazu — Developer Profile</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <main class="card-wrapper">
-    <div class="profile-card">
+  <main class="page-container">
+    <article class="profile-card">
       
-      <!-- Cover Banner -->
-      <div class="banner-container">
-        <div class="banner-image"></div>
+      <!-- Real Web Development Header Banner -->
+      <div class="banner-frame">
+        <img 
+          src="banner.jpg" 
+          alt="Web development code workspace" 
+          class="banner-img"
+          id="bannerImage"
+        >
+        <div class="banner-gradient-edge"></div>
+        <div class="dev-badge">
+          <span class="status-indicator"></span>
+          <span>Open to collaborate</span>
+        </div>
       </div>
 
-      <!-- Avatar & Edit Action Row -->
-      <div class="profile-top-row">
-        <div class="avatar-wrapper" title="Click to change picture">
+      <!-- Avatar & Quick Actions Row -->
+      <div class="identity-header">
+        <div class="avatar-container" title="Click to change photo">
           <img 
             id="avatarImage" 
-            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" 
+            src="profile.jpg" 
             alt="Nazmunnahar Nazu"
+            class="avatar-photo"
           >
-          <input type="file" id="avatarInput" accept="image/*" style="display: none;">
-          <div class="avatar-overlay">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <input type="file" id="avatarInput" accept="image/*" class="visually-hidden">
+          <div class="avatar-edit-hint" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
               <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
               <circle cx="12" cy="13" r="4"/>
             </svg>
           </div>
         </div>
 
-        <button class="btn btn-outline edit-btn" id="editProfileBtn">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 20h9"/>
-            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
-          </svg>
-          <span>Edit Profile</span>
-        </button>
+        <div class="header-actions">
+          <button class="btn btn-secondary" id="editProfileBtn" type="button">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9"/>
+              <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+            </svg>
+            <span>Edit profile</span>
+          </button>
+        </div>
       </div>
 
-      <!-- Header Info & Follow Row -->
-      <div class="profile-info-row">
-        <div class="user-identity">
-          <div class="name-badge-group">
+      <!-- User Title & Action Row -->
+      <div class="user-row">
+        <div class="user-meta">
+          <div class="name-line">
             <h1 class="user-name" id="displayFullName">Nazmunnahar Nazu</h1>
-            <span class="verified-badge" title="Verified Account">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="#3b82f6">
+            <span class="verified-icon" title="Verified developer">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.2 14.6l-3.8-3.8 1.4-1.4 2.4 2.4 5.8-5.8 1.4 1.4-7.2 7.2z"/>
               </svg>
             </span>
@@ -59,92 +72,100 @@
           <span class="user-handle" id="displayHandle">@nazu3872</span>
         </div>
 
-        <div class="action-buttons">
-          <button class="btn btn-solid follow-btn" id="followBtn">
-            <span class="plus-icon">+</span>
-            <span class="btn-text">Follow</span>
+        <div class="social-actions">
+          <button class="btn btn-primary" id="followBtn" type="button">
+            <svg class="follow-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <span class="btn-label">Follow</span>
           </button>
-          <button class="btn btn-icon message-btn" title="Send Message" id="messageBtn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/>
+          <button class="btn btn-icon" id="messageBtn" type="button" title="Send message" aria-label="Send message">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
             </svg>
           </button>
         </div>
       </div>
 
       <!-- About Section -->
-      <section class="about-section">
-        <h2 class="about-title">About</h2>
-        <p class="about-description" id="displayBio">
-          I'm Nazmunnahar Nazu, an enthusiastic full-stack developer learning at Programming Hero. I specialize in building modern, responsive, user-centered web applications with clean code and intuitive design.
+      <section class="about-block">
+        <h2 class="section-heading">About</h2>
+        <p class="about-text" id="displayBio">
+          Full-stack web development student at Programming Hero. Focused on building responsive user interfaces, modular backend services, and clean, accessible code.
         </p>
       </section>
 
-      <!-- Stats Section -->
-      <div class="stats-grid">
-        <div class="stat-item">
-          <span class="stat-value" id="displayPosts">24</span>
-          <span class="stat-label">Projects</span>
+      <!-- Developer Metrics -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <span class="metric-value" id="displayPosts">24</span>
+          <span class="metric-label">Projects</span>
         </div>
-        <div class="stat-item">
-          <span class="stat-value" id="displayFollowing">350</span>
-          <span class="stat-label">Following</span>
+        <div class="metric-card">
+          <span class="metric-value" id="displayFollowing">350</span>
+          <span class="metric-label">Following</span>
         </div>
-        <div class="stat-item">
-          <span class="stat-value" id="displayFollowers">1.2k</span>
-          <span class="stat-label">Followers</span>
+        <div class="metric-card">
+          <span class="metric-value" id="displayFollowers">1.2k</span>
+          <span class="metric-label">Followers</span>
         </div>
       </div>
 
-    </div>
+      <!-- Stack Tags Signature -->
+      <div class="stack-footer">
+        <span class="tech-tag">JavaScript</span>
+        <span class="tech-tag">React</span>
+        <span class="tech-tag">Node.js</span>
+        <span class="tech-tag">HTML & CSS</span>
+      </div>
+
+    </article>
   </main>
 
   <!-- Edit Profile Modal -->
-  <div class="modal-backdrop" id="editModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3>Edit Profile Details</h3>
-        <button class="close-btn" id="closeModalBtn">&times;</button>
+  <div class="modal-layer" id="editModal" aria-hidden="true">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-dialog" role="dialog" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <h3 id="modalTitle">Edit profile</h3>
+        <button class="icon-close" id="closeModalBtn" type="button" aria-label="Close dialog">&times;</button>
       </div>
-      <form id="profileForm" class="modal-body">
-        <div class="form-group">
-          <label for="inputName">Full Name</label>
-          <input type="text" id="inputName" value="Nazmunnahar Nazu" required>
+
+      <form id="profileForm" class="modal-form">
+        <div class="input-block">
+          <label for="inputName">Full name</label>
+          <input type="text" id="inputName" required>
         </div>
 
-        <div class="form-group">
-          <label for="inputHandle">Username / Handle</label>
-          <input type="text" id="inputHandle" value="@nazu3872" required>
+        <div class="input-block">
+          <label for="inputHandle">Username</label>
+          <input type="text" id="inputHandle" required>
         </div>
 
-        <div class="form-group">
-          <label for="inputBio">About / Bio</label>
+        <div class="input-block">
+          <label for="inputBio">Bio</label>
           <textarea id="inputBio" rows="3" required></textarea>
         </div>
 
-        <div class="form-row">
-          <div class="form-group">
+        <div class="input-triad">
+          <div class="input-block">
             <label for="inputProjects">Projects</label>
-            <input type="text" id="inputProjects" value="24">
+            <input type="text" id="inputProjects">
           </div>
-          <div class="form-group">
+          <div class="input-block">
             <label for="inputFollowing">Following</label>
-            <input type="text" id="inputFollowing" value="350">
+            <input type="text" id="inputFollowing">
           </div>
-          <div class="form-group">
+          <div class="input-block">
             <label for="inputFollowers">Followers</label>
-            <input type="text" id="inputFollowers" value="1.2k">
+            <input type="text" id="inputFollowers">
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="inputPhotoUrl">Profile Picture URL (or click photo on card)</label>
-          <input type="url" id="inputPhotoUrl" placeholder="https://example.com/photo.jpg">
-        </div>
-
-        <div class="modal-actions">
-          <button type="button" class="btn btn-outline" id="cancelEditBtn">Cancel</button>
-          <button type="submit" class="btn btn-solid">Save Changes</button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="cancelEditBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
         </div>
       </form>
     </div>
